@@ -49,13 +49,13 @@
 
     - name: Set gnome icons
       ansible.builtin.command: 
-        command: gsettings set org.gnome.desktop.interface icon-theme Win11-blue
+        cmd: gsettings set org.gnome.desktop.interface icon-theme Win11-blue
 
     - name: Set gnome theme
       ansible.builtin.command:
-        command: gsettings set org.gnome.desktop.interface gtk-theme ZorinBlue-Light
+        cmd: gsettings set org.gnome.desktop.interface gtk-theme ZorinBlue-Light
 
     - name: Send notification to the logged-in user
       ansible.builtin.command:
-        command: notify-send "Ansible Playbook" "Your task is complete!"
+        cmd: notify-send "Ansible Playbook" "Your task is complete!"
         become_user: "{{ logged_in_user.stdout }}"
