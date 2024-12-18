@@ -17,7 +17,8 @@
   hosts: localhost
   tasks:
     - name: Get the logged-in user
-      shell: "who | grep '(:0)' | awk '{print $1}'"
+      ansible.builtin.shell:
+        cmd: "who | grep '(:0)' | awk '{print $1}'"
       register: logged_in_user
       changed_when: false
 
@@ -58,4 +59,4 @@
     - name: Send notification to the logged-in user
       ansible.builtin.command:
         cmd: notify-send "Ansible Playbook" "Your task is complete!"
-        become_user: "{{ logged_in_user.stdout }}"
+      become_user: "{{ logged_in_user.stdout }}"
