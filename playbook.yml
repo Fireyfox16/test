@@ -12,3 +12,23 @@
       community.general.flatpak:
         name: org.onlyoffice.desktopeditors
         state: present
+
+- name: Install UI customizations
+  hosts: localhost
+  tasks:
+    - name: Retrieve desktop theme
+      ansible.builtin.git:
+        repo: https://github.com/ZorinOS/zorin-desktop-themes.git
+        dest: /root/themes
+        update: no
+
+    - name: Retrieve icons
+      ansible.builtin.git:
+        repo: https://github.com/yeyushengfan258/Win11-icon-theme.git
+        dest: /root/icons
+        update: no
+
+    - name: Install icons
+      ansible.builtin.shell: 
+        cmd: install.sh -a
+        chdir: /root/icons
