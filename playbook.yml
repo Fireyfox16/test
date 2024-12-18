@@ -1,12 +1,4 @@
 ---
-- name: Get user
-  hosts: localhost
-  tasks:
-    - name: Get the logged-in user
-      shell: "who | grep '(:0)' | awk '{print $1}'"
-      register: logged_in_user
-      changed_when: false
-
 - name: Install OnlyOffice
   hosts: localhost
   tasks:
@@ -20,6 +12,14 @@
       community.general.flatpak:
         name: org.onlyoffice.desktopeditors
         state: present
+
+- name: Get user
+  hosts: localhost
+  tasks:
+    - name: Get the logged-in user
+      shell: "who | grep '(:0)' | awk '{print $1}'"
+      register: logged_in_user
+      changed_when: false
 
 - name: Install UI customizations
   hosts: localhost
@@ -43,8 +43,9 @@
 
     - name: Copy themes
       ansible.builtin.file:
-        src: /root/themes/Zorin*
+        src: "{{ item }}"
         dest: /usr/share/themes/
+      with_fileglob: '/root/themes/Zorin*'
 
     - name: Set gnome icons
       ansible.builtin.command: 
