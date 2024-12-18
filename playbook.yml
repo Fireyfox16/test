@@ -1,4 +1,12 @@
 ---
+- name: Get user
+  hosts: localhost
+  tasks:
+    - name: Get the logged-in user
+      shell: "who | grep '(:0)' | awk '{print $1}'"
+      register: logged_in_user
+      changed_when: false
+
 - name: Install OnlyOffice
   hosts: localhost
   tasks:
@@ -32,3 +40,21 @@
       ansible.builtin.shell: 
         cmd: ./install.sh -a
         chdir: /root/icons
+
+    - name: Copy themes
+      ansible.builtin.file:
+        src: /root/themes/Zorin*
+        dest: /usr/share/themes/
+
+    - name: Set gnome icons
+      ansible.builtin.command: 
+        command: gsettings set org.gnome.desktop.interface icon-theme Win11-blue
+
+    - name: Set gnome theme
+      ansible.builtin.command:
+        command: gsettings set org.gnome.desktop.interface gtk-theme ZorinBlue-Light
+
+    - name: Send notification to the logged-in user
+      ansible.builtin.command:
+        command: notify-send "Ansible Playbook" "Your task is complete!"
+        become_user: "{{ logged_in_user.stdout }}"
