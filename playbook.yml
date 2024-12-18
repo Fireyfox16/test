@@ -30,5 +30,5 @@
 
     - name: Install icons
       ansible.builtin.shell: 
-        cmd: install.sh -a
+        cmd: ./install.sh -a
         chdir: /root/icons
