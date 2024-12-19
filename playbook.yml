@@ -42,11 +42,19 @@
         cmd: ./install.sh -a
         chdir: /root/icons
 
+    - name: Find themes
+      ansible.builtin.find:
+        paths: /root/themes
+        patterns: Zorin*
+        file_type: directory
+      register: theme_dirs
+
     - name: Copy themes
       ansible.builtin.copy:
-        src: "{{ item }}"
+        src: "{{ item.path }}"
         dest: /usr/share/themes/
-      loop: /root/themes/Zorin*
+      loop: "{{ theme_dirs.files }}"
+      when: theme_dirs.files | length > 0
 
     - name: Set gnome icons
       ansible.builtin.command: 
