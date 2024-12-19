@@ -44,7 +44,7 @@
 
     - name: Copy themes
       ansible.builtin.copy:
-        src: "/root/themes/Zorin*/"
+        src: "/root/themes/Zorin*"
         dest: /usr/share/themes/
 
     - name: Set gnome icons
