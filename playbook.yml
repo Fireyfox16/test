@@ -43,7 +43,7 @@
         chdir: /root/icons
 
     - name: Copy themes
-      ansible.builtin.file:
+      ansible.builtin.copy:
         src: "{{ item }}"
         dest: /usr/share/themes/
       with_fileglob: 
