@@ -46,7 +46,7 @@
       ansible.builtin.file:
         src: "{{ item }}"
         dest: /usr/share/themes/
-      with_fileglob: '/root/themes/Zorin*'
+      with_fileglob: '/root/themes/Zorin*/'
 
     - name: Set gnome icons
       ansible.builtin.command: 
