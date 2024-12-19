@@ -44,10 +44,8 @@
 
     - name: Copy themes
       ansible.builtin.copy:
-        src: "{{ item }}"
+        src: "/root/themes/ZorinBlue-Light"
         dest: /usr/share/themes/
-      with_fileglob: 
-        - "/root/themes/ZorinBlue-Light"
 
     - name: Set gnome icons
       ansible.builtin.command: 
